@@ -9,6 +9,7 @@ def getfilename(request,filename):
     return os.path.join('uploads/',new_filename)
 
 class Products(models.Model):
+    catagory=models.ForeignKey(Catagory, on_delete=models.CASCADE)
     name=models.CharField(max_length=100, null=False, blank=False)
     vendor=models.CharField(max_length=150, null=False, blank=False)
     quantity=models.IntegerField(null=False, blank=False)
