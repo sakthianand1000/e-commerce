@@ -1,0 +1,21 @@
+from django.db import models
+from django.contrib.auth.models import User
+import datetime
+import os
+
+def getfilename(request,filename):
+    now_time=datetime.datetime.now().strftime("%Y%m%d%H:%M:%S")
+    new_filename ="%s%s"%(now_time,filename)
+    return os.path.join('uploads/',new_filename)
+
+class Products(models.Model):
+    name=models.CharField(max_length=100, null=False, blank=False)
+    vendor=models.CharField(max_length=150, null=False, blank=False)
+    quantity=models.IntegerField(null=False, blank=False)
+    old_price=models.FloatField(null=False, blank=False)
+    new_price=models.FloatField(null=False, blank=False)
+    image=models.ImageField(upload_to=getfilename, null=True, blank=True)
+    description=models.TextField(max_length=500, null=False, blank=False)
+    status=models.BooleanField(default=False, help_text="0-default, 1-hidden")
+    trending=models.BooleanField(default=False, help_text="0-default, 1-trending")
+    created_at=models.DateTimeField(auto_now_add=True)
